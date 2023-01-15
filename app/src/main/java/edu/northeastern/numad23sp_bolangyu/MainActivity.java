@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -19,6 +20,8 @@ public class MainActivity extends AppCompatActivity {
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                Toast.makeText(MainActivity.this,"Name: Bolang Yu",Toast.LENGTH_LONG).show();
+                Toast.makeText(MainActivity.this,"Email: yu.bol@northeastern.edu",Toast.LENGTH_LONG).show();
                 openAboutMe();
             }
         });
