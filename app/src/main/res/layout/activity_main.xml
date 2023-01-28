@@ -28,4 +28,15 @@
         tools:layout_editor_absoluteX="149dp"
         tools:layout_editor_absoluteY="331dp" />
 
+    <Button
+        android:id="@+id/click"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="272dp"
+        android:text="Clicky Clicky"
+        tools:layout_editor_absoluteX="149dp"
+        tools:layout_editor_absoluteY="331dp" />
+
 </RelativeLayout>
