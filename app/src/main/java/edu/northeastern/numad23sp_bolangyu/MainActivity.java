@@ -12,6 +12,8 @@ public class MainActivity extends AppCompatActivity {
 
     private Button button;
     private Button Clicky;
+
+    private Button link;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -19,6 +21,7 @@ public class MainActivity extends AppCompatActivity {
 
         button = (Button) findViewById(R.id.button);
         Clicky = (Button) findViewById(R.id.click);
+        link = (Button) findViewById(R.id.linkCollector);
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -34,6 +37,13 @@ public class MainActivity extends AppCompatActivity {
                 openclicky();
             }
         });
+
+        link.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                openlink();
+            }
+        });
     }
 
     public void openAboutMe(){
@@ -43,6 +53,11 @@ public class MainActivity extends AppCompatActivity {
 
     public void openclicky(){
         Intent intent = new Intent(this, MainActivity3.class);
+        startActivity(intent);
+    }
+
+    public void openlink(){
+        Intent intent = new Intent(this, MainActivity4.class);
         startActivity(intent);
     }
 }

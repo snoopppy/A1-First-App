@@ -34,9 +34,18 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="241dp"
+        android:layout_marginBottom="247dp"
         android:text="Clicky Clicky"
         tools:layout_editor_absoluteX="149dp"
         tools:layout_editor_absoluteY="331dp" />
+
+    <Button
+        android:id="@+id/linkCollector"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="192dp"
+        android:text="Link Collector" />
 
 </RelativeLayout>
