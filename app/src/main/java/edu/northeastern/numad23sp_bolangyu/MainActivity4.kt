@@ -37,12 +37,8 @@ class MainActivity4 : AppCompatActivity() {
 
         add.setOnClickListener{addInfo()}
         back.setOnClickListener{
-//            val intent = Intent(this,MainActivity::class.java)
-//            startActivity(intent)
-
-            val open = Intent(Intent.ACTION_VIEW)
-            open.data = Uri.parse("https://www.google.com/")
-            startActivity(open)
+            val intent = Intent(this,MainActivity::class.java)
+            startActivity(intent)
 
         }
 
