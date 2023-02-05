@@ -29,16 +29,28 @@
             android:layout_height="wrap_content"/>
         <EditText
             android:id="@+id/userName"
-            android:hint="Name"
+            android:hint="textName "
+            android:padding="15dp"
+            android:background="@drawable/shape_background"
+            android:inputType="textPersonName"
             android:textSize="18sp"
-            android:layout_margin="15dp"
+            android:layout_marginBottom="5dp"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="15dp"
+            android:layout_marginTop="15dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"/>
         <EditText
             android:id="@+id/userURL"
             android:hint="URL"
+            android:padding="15dp"
+            android:background="@drawable/shape_background"
+            android:inputType="text"
             android:textSize="18sp"
-            android:layout_margin="15dp"
+            android:layout_marginBottom="15dp"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="15dp"
+            android:layout_marginTop="5dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"/>
 
