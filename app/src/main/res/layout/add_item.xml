@@ -29,7 +29,7 @@
             android:layout_height="wrap_content"/>
         <EditText
             android:id="@+id/userName"
-            android:hint="textName "
+            android:hint="Name "
             android:padding="15dp"
             android:background="@drawable/shape_background"
             android:inputType="textPersonName"
