@@ -25,6 +25,7 @@ public class PrimeDirective extends AppCompatActivity {
     private String primeList;
     private boolean shouldContinue = true;
     private runableThread findthread;
+    private boolean clickedFind = false;
 
 
     @SuppressLint("MissingInflatedId")
@@ -45,6 +46,7 @@ public class PrimeDirective extends AppCompatActivity {
         find.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                clickedFind = true;
                 findthread = new runableThread();
                 shouldContinue = true;
             }
@@ -52,8 +54,11 @@ public class PrimeDirective extends AppCompatActivity {
         terminate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                if(clickedFind)
+                {
                     shouldContinue = false;
                     findthread.stop();
+                }
             }
         });
 
