@@ -16,6 +16,7 @@ public class MainActivity extends AppCompatActivity {
     private Button link;
 
     private Button prime;
+    private Button location;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -25,6 +26,7 @@ public class MainActivity extends AppCompatActivity {
         Clicky = (Button) findViewById(R.id.click);
         link = (Button) findViewById(R.id.linkCollector);
         prime = (Button) findViewById(R.id.prime);
+        location = (Button) findViewById(R.id.location);
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -54,7 +56,16 @@ public class MainActivity extends AppCompatActivity {
                 openPrime();
             }
         });
+
+        location.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                openLocation();
+            }
+        });
     }
+
+
 
     public void openAboutMe(){
         Intent intent =new Intent(this, MainActivity2.class);
@@ -73,6 +84,10 @@ public class MainActivity extends AppCompatActivity {
 
     public void openPrime(){
         Intent intent = new Intent(this, PrimeDirective.class);
+        startActivity(intent);
+    }
+    private void openLocation() {
+        Intent intent = new Intent(this, Location.class);
         startActivity(intent);
     }
 }
