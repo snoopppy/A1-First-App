@@ -10,12 +10,30 @@ import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
 import android.os.FileObserver;
+import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import com.google.android.gms.location.FusedLocationProviderClient;
+import com.google.android.gms.location.LocationCallback;
+import com.google.android.gms.location.LocationRequest;
+import com.google.android.gms.location.LocationResult;
+import com.google.android.gms.location.LocationServices;
+
+import org.w3c.dom.Text;
 
 public class Location extends AppCompatActivity implements LocationListener {
 
     private LocationManager locationManager;
-    private TextView textLocation;
+    private TextView textlatitude;
+    private TextView textlongitude;
+    private TextView textdistance;
+    private Button reset;
+    private FusedLocationProviderClient fusedLocationClient;
+    private android.location.Location currentLocation;
+    private android.location.Location previousLocation;
+    private double totalDistanceTraveled = 0.0;
 
 
     @Override
@@ -23,8 +41,16 @@ public class Location extends AppCompatActivity implements LocationListener {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_location);
 
-        textLocation = findViewById(R.id.text_location);
-        locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+        textlatitude = findViewById(R.id.text_latitude);
+        textlongitude = findViewById(R.id.text_longitude);
+        textdistance = findViewById(R.id.text_distance);
+        reset = findViewById(R.id.button_reset);
+        fusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
+        // Request location updates
+        LocationRequest locationRequest = LocationRequest.create()
+                .setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY)
+                .setInterval(10000)
+                .setFastestInterval(5000);
         if (ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             // TODO: Consider calling
             //    ActivityCompat#requestPermissions
@@ -35,29 +61,52 @@ public class Location extends AppCompatActivity implements LocationListener {
             // for ActivityCompat#requestPermissions for more details.
             return;
         }
-        android.location.Location location = locationManager.getLastKnownLocation(locationManager.NETWORK_PROVIDER);
-        onLocationChanged(location);
+        fusedLocationClient.requestLocationUpdates(locationRequest, new LocationCallback() {
+            @Override
+            public void onLocationResult(LocationResult locationResult) {
+                super.onLocationResult(locationResult);
+                onLocationChanged(locationResult.getLastLocation());
+            }
+        }, null);
     }
 
     @Override
     public void onLocationChanged(@NonNull android.location.Location location) {
-        double longitude = location.getLongitude();
-        double latitude = location.getLatitude();
-        textLocation.setText("Latitude: "+latitude+"\n"+"Longitude: "+ longitude);
+        // Update the current and previous location variables
+        previousLocation = currentLocation;
+        currentLocation = location;
+
+        // Update the total distance traveled
+        if (previousLocation != null) {
+            float[] results = new float[1];
+
+            android.location.Location.distanceBetween(previousLocation.getLatitude(),
+                    previousLocation.getLongitude(),
+                    currentLocation.getLatitude(),
+                    currentLocation.getLongitude(),
+                    results);
+            float distanceInMeters = results[0];
+            totalDistanceTraveled += distanceInMeters / 1000.0; // convert to km
+        }
+
+
+        textlatitude.setText("Latitude: " + currentLocation.getLatitude());
+        textlongitude.setText("Longitude: " + currentLocation.getLongitude());
+        textdistance.setText("Total distance traveled: " + totalDistanceTraveled + " km");
+
+        // Show or hide the reset button based on whether there is any distance traveled
+        if (totalDistanceTraveled > 0) {
+            reset.setVisibility(View.VISIBLE);
+        } else {
+            reset.setVisibility(View.GONE);
+        }
     }
 
-    @Override
-    public void onStatusChanged(String provider, int status, Bundle extras) {
-        LocationListener.super.onStatusChanged(provider, status, extras);
+    // Reset the total distance traveled when the reset button is clicked
+    public void resetDistanceTraveled(View view) {
+        totalDistanceTraveled = 0.0;
+        textdistance.setText("Total Distance Traveled: "+totalDistanceTraveled+" km");
+        reset.setVisibility(View.GONE);
     }
 
-    @Override
-    public void onProviderEnabled(@NonNull String provider) {
-        LocationListener.super.onProviderEnabled(provider);
-    }
-
-    @Override
-    public void onProviderDisabled(@NonNull String provider) {
-        LocationListener.super.onProviderDisabled(provider);
-    }
 }
